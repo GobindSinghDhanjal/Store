@@ -80,7 +80,7 @@ export default function CardGrid() {
         ) : (
           // Show products
           products.map(product => (
-            <Grid key={product.id} item xs={6} md={4}>
+            <Grid textAlign={"-webkit-center"} key={product.id} item xs={6} md={4}>
               <SingleCard product={product} />
             </Grid>
           ))
