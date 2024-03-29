@@ -9,3 +9,13 @@
 .card-grid {
   text-align: "-webkit-center" !important;
 }
+
+@media (max-width: 600px) {
+  .container{
+    padding: 10px 20px;
+  }
+  .card-content{
+    padding: 10px;
+    padding-bottom: 5px !important;
+  }
+}

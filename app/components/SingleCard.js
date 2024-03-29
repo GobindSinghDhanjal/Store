@@ -4,18 +4,32 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Grid } from "@mui/material";
+import { Grid, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/navigation";
 
 export default function SingleCard({ product }) {
   const router = useRouter();
+
+  const xsScreen = useMediaQuery("(max-width:600px)");
+
+  const renderTitle = () => {
+    if (xsScreen) {
+      // If extra-small screen, limit the title to 20 characters
+      return product.title.length > 20
+        ? product.title.slice(0, 20) + "..."
+        : product.title;
+    } else {
+      // If larger screen, render full title
+      return product.title;
+    }
+  };
 
   const handleCardClick = () => {
     router.push(`/productdetails?product=${product.id}`);
   };
 
   return (
-    <Card onClick={handleCardClick} sx={{cursor:"pointer", maxWidth: 345 }}>
+    <Card onClick={handleCardClick} sx={{ cursor: "pointer", maxWidth: 345 }}>
       <CardMedia
         sx={{
           height: 200,
@@ -28,13 +42,13 @@ export default function SingleCard({ product }) {
         title={product.title}
         style={{ objectFit: "contain" }}
       />
-      <CardContent>
+      <CardContent className="card-content">
         <Typography
           gutterBottom
           variant="h5"
           component="div"
           sx={{
-            minHeight: "100px",
+            minHeight: xsScreen ? '45px' : "100px",
             fontSize: { xs: "medium", sm: "large" }, // Adjust font size for mobile and larger screens
             fontWeight: "600",
             height: "auto",
@@ -44,7 +58,7 @@ export default function SingleCard({ product }) {
             WebkitLineClamp: 2,
           }}
         >
-          {product.title}
+          {renderTitle()}
         </Typography>
         <Grid container>
           <Grid item xs={12} md={4}>
@@ -60,8 +74,19 @@ export default function SingleCard({ product }) {
               Price: ${product.price}
             </Typography>
           </Grid>
-          <Grid item xs={12} md={8}>
-            <div style={{ display: "inline-block", float: "right", textAlign:"right" }}>
+          <Grid
+            item
+            xs={12}
+            md={8}
+            style={{ display: xsScreen ? "none" : "block" }}
+          >
+            <div
+              style={{
+                display: "inline-block",
+                float: "right",
+                textAlign: "right",
+              }}
+            >
               <Button
                 variant="outlined"
                 color="primary"
