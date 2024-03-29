@@ -4,7 +4,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <Box sx={{ bgcolor: "primary.main",marginTop:"100px", color: "white", py: 4 }}>
+    <Box sx={{ bgcolor: "primary.main",marginTop:"180px", color: "white", py: 4 }}>
       <Box textAlign={"center"} mb={2}>
         <Typography variant="h6">STORE</Typography>
         <Typography variant="body1">
